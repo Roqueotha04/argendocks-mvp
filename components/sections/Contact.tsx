@@ -9,7 +9,7 @@ import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
-import { UnderlineField, underlineInputClassName } from "@/components/ui/UnderlineField";
+import { Field, fieldInputClassName } from "@/components/ui/Field";
 import { buildWhatsAppLink } from "@/lib/whatsapp";
 import { WhatsAppIcon } from "@/components/ui/icons";
 
@@ -51,7 +51,7 @@ export function Contact() {
 
   return (
     <Section id="contact" className="bg-background">
-      <div className="grid gap-12 md:grid-cols-[0.85fr_1.15fr] md:gap-16">
+      <div className="grid items-start gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
         <Reveal>
           <SectionHeading eyebrow={contact.eyebrow} title={contact.title} subtitle={contact.subtitle} />
 
@@ -77,49 +77,55 @@ export function Contact() {
         </Reveal>
 
         <Reveal delay={0.08}>
-          <form onSubmit={handleSubmit} className="grid gap-7 sm:grid-cols-2">
-            <UnderlineField label={t(ui.contact.nameLabel)} className="sm:col-span-2">
+          <form
+            onSubmit={handleSubmit}
+            className="grid gap-4 rounded-3xl border border-line bg-white p-6 shadow-[0_24px_60px_-40px_rgba(10,24,48,0.5)] md:p-8 lg:grid-cols-2"
+          >
+            <h3 className="font-heading text-lg font-semibold text-primary lg:col-span-2">
+              {t(ui.contact.formTitle)}
+            </h3>
+            <Field label={t(ui.contact.nameLabel)} className="lg:col-span-2">
               <input
                 type="text"
                 value={name}
                 onChange={(event) => setName(event.target.value)}
                 autoComplete="name"
                 required
-                className={underlineInputClassName}
+                className={fieldInputClassName}
               />
-            </UnderlineField>
-            <UnderlineField label={t(ui.contact.emailLabel)}>
+            </Field>
+            <Field label={t(ui.contact.emailLabel)}>
               <input
                 type="email"
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
                 autoComplete="email"
                 required
-                className={underlineInputClassName}
+                className={fieldInputClassName}
               />
-            </UnderlineField>
-            <UnderlineField label={t(ui.contact.companyLabel)}>
+            </Field>
+            <Field label={t(ui.contact.companyLabel)}>
               <input
                 type="text"
                 value={company}
                 onChange={(event) => setCompany(event.target.value)}
                 autoComplete="organization"
-                className={underlineInputClassName}
+                className={fieldInputClassName}
               />
-            </UnderlineField>
-            <UnderlineField label={t(ui.contact.messageLabel)} className="sm:col-span-2">
+            </Field>
+            <Field label={t(ui.contact.messageLabel)} className="lg:col-span-2">
               <textarea
                 value={message}
                 onChange={(event) => setMessage(event.target.value)}
                 placeholder={t(ui.contact.messagePlaceholder)}
                 required
                 rows={4}
-                className={`${underlineInputClassName} resize-none`}
+                className={`${fieldInputClassName} resize-none`}
               />
-            </UnderlineField>
+            </Field>
             <button
               type="submit"
-              className="inline-flex h-12 w-fit items-center justify-center gap-2 rounded-full bg-primary px-7 text-sm font-semibold text-white transition-colors hover:bg-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary"
+              className="mt-2 inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-primary px-7 text-sm font-semibold text-white transition-colors hover:bg-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary lg:col-span-2"
             >
               <WhatsAppIcon className="h-4 w-4" />
               {t(ui.contact.submit)}

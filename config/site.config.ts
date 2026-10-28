@@ -108,42 +108,57 @@ export const siteConfig: SiteConfig = validateConfig({
   },
   offerings: {
     kind: "services",
-    eyebrow: { es: "Consultoría", en: "Consulting" },
+    eyebrow: { es: "La red", en: "The network" },
     title: {
-      es: "Asesoramiento de alguien que caminó los muelles",
-      en: "Advice from someone who has walked the quays",
+      es: "Una plataforma que une los puertos del país",
+      en: "A platform that connects the country's ports",
     },
     subtitle: {
-      es: "Para puertos, terminales y empresas que operan en ellos.",
-      en: "For ports, terminals and the companies that work in them.",
+      es: "Cada actor del sistema portuario, mirando los mismos datos.",
+      en: "Everyone in the port system, looking at the same data.",
     },
+    ctaText: { es: "Sumá tu puerto a la red", en: "Add your port to the network" },
     items: [
       {
-        name: { es: "Gestión portuaria", en: "Port management" },
+        name: { es: "Puertos y administraciones", en: "Ports and authorities" },
         description: {
-          es: "Diagnóstico operativo y planes de gestión para administraciones públicas y privadas.",
-          en: "Operational diagnosis and management plans for public and private port authorities.",
+          es: "Mostrá tu infraestructura al país y al mundo, con datos que vos mismo mantenés al día.",
+          en: "Show your infrastructure to the country and the world, with data you keep up to date.",
         },
       },
       {
-        name: { es: "Desarrollo comercial", en: "Commercial development" },
+        name: { es: "Navieras y agencias", en: "Shipping lines and agents" },
         description: {
-          es: "Estrategia para atraer cargas y líneas, con datos reales del sistema portuario.",
-          en: "Strategy to attract cargo and shipping lines, backed by real port-system data.",
+          es: "Compará calados y frentes de atraque antes de planificar una escala.",
+          en: "Compare drafts and berths before planning a port call.",
         },
       },
       {
-        name: { es: "Vías navegables", en: "Waterways" },
+        name: { es: "Exportadores e importadores", en: "Exporters and importers" },
         description: {
-          es: "Análisis de accesos náuticos, calados y logística fluvial sobre la Hidrovía.",
-          en: "Analysis of nautical access, drafts and river logistics on the Waterway.",
+          es: "Elegí el puerto que mejor se adapta a tu carga, con información verificable.",
+          en: "Choose the port that best fits your cargo, with verifiable information.",
         },
       },
       {
-        name: { es: "Relaciones institucionales", en: "Institutional relations" },
+        name: { es: "Organismos públicos", en: "Public agencies" },
         description: {
-          es: "Acompañamiento ante organismos nacionales, comisiones binacionales y la OEA.",
-          en: "Support before national agencies, binational commissions and the OAS.",
+          es: "Una base común para planificar inversiones y políticas portuarias.",
+          en: "A shared baseline to plan port investment and policy.",
+        },
+      },
+      {
+        name: { es: "Comunidad portuaria", en: "Port community" },
+        description: {
+          es: "Prácticos, operadores y trabajadores que corrigen y suman datos desde el muelle.",
+          en: "Pilots, operators and workers who correct and add data straight from the quay.",
+        },
+      },
+      {
+        name: { es: "Investigación y prensa", en: "Research and press" },
+        description: {
+          es: "Datos ordenados y citables sobre el sistema portuario argentino.",
+          en: "Organized, citable data on the Argentine port system.",
         },
       },
     ],
@@ -225,10 +240,10 @@ export const siteConfig: SiteConfig = validateConfig({
       en: "ArgenDocks — Argentine Port Network",
     },
     description: {
-      es: "Todos los puertos de Argentina en un solo lugar: mapa interactivo, terminales, calados y cargas, con fichas exportables y consultoría portuaria.",
-      en: "Every Argentine port in one place: interactive map, terminals, drafts and cargo, with exportable records and port consulting.",
+      es: "Todos los puertos de Argentina en un solo lugar: mapa interactivo, terminales, calados y cargas, con fichas exportables y una red que conecta a la comunidad portuaria.",
+      en: "Every Argentine port in one place: interactive map, terminals, drafts and cargo, with exportable records and a network that connects the port community.",
     },
-    keywords: ["puertos argentinos", "terminales portuarias", "calado", "hidrovía", "consultoría portuaria", "Argentina"],
+    keywords: ["puertos argentinos", "terminales portuarias", "calado", "hidrovía", "red portuaria", "Argentina"],
     ogImage: "/logo.webp",
   },
 });

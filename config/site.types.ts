@@ -126,6 +126,7 @@ export interface OfferingsContent {
   eyebrow?: Localized;
   title: Localized;
   subtitle?: Localized;
+  ctaText?: Localized;
   items: Offering[];
 }
 

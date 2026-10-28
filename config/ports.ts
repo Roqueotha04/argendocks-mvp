@@ -17,6 +17,10 @@ export const ports: Puerto[] = [
       en: "Río de la Plata — North and South channels",
     },
     coordenadas: { lat: -34.585, lng: -58.368 },
+    foto: {
+      src: "/puertos/puerto-buenos-aires.jpg",
+      credito: "Autor desconocido · CC BY 2.5 AR · Wikimedia Commons",
+    },
     terminales: [
       {
         nombre: "Terminal 4",
@@ -66,6 +70,10 @@ export const ports: Puerto[] = [
       en: "Paraná River — Waterway, km 420",
     },
     coordenadas: { lat: -32.963, lng: -60.627 },
+    foto: {
+      src: "/puertos/puerto-rosario.jpg",
+      credito: "Pablo D. Flores · CC BY-SA 2.5 · Wikimedia Commons",
+    },
     terminales: [
       {
         nombre: "Terminal Puerto Rosario",
@@ -105,6 +113,10 @@ export const ports: Puerto[] = [
       en: "Argentine Sea — outer harbor between North and South breakwaters",
     },
     coordenadas: { lat: -38.042, lng: -57.535 },
+    foto: {
+      src: "/puertos/puerto-mar-del-plata.jpg",
+      credito: "Ezarate · CC BY-SA 4.0 · Wikimedia Commons",
+    },
     terminales: [
       {
         nombre: "Terminal de Contenedores TC2",
@@ -144,6 +156,10 @@ export const ports: Puerto[] = [
       en: "Atlantic Ocean — Bahía Blanca estuary (south shore)",
     },
     coordenadas: { lat: -38.925, lng: -62.072 },
+    foto: {
+      src: "/puertos/puerto-rosales.jpg",
+      credito: "AHMPA · CC BY-SA 4.0 · Wikimedia Commons",
+    },
     terminales: [
       {
         nombre: "Muelle Público Principal",
@@ -193,6 +209,10 @@ export const ports: Puerto[] = [
       en: "Bahía Blanca estuary — 45-foot main channel",
     },
     coordenadas: { lat: -38.79, lng: -62.27 },
+    foto: {
+      src: "/puertos/puerto-bahia-blanca.jpg",
+      credito: "Juan Corral · CC BY 2.5 AR · Wikimedia Commons",
+    },
     terminales: [
       {
         nombre: "Terminal Bahía Blanca",
@@ -232,6 +252,10 @@ export const ports: Puerto[] = [
       en: "Golfo Nuevo — sheltered waters",
     },
     coordenadas: { lat: -42.768, lng: -65.032 },
+    foto: {
+      src: "/puertos/puerto-madryn.jpg",
+      credito: "Gastón Cuello · CC BY-SA 3.0 · Wikimedia Commons",
+    },
     terminales: [
       {
         nombre: "Muelle Comandante Luis Piedra Buena",
@@ -271,6 +295,10 @@ export const ports: Puerto[] = [
       en: "Beagle Channel — Ushuaia bay",
     },
     coordenadas: { lat: -54.81, lng: -68.3 },
+    foto: {
+      src: "/puertos/puerto-ushuaia.jpg",
+      credito: "Gastón Cuello · CC BY-SA 4.0 · Wikimedia Commons",
+    },
     terminales: [
       {
         nombre: "Muelle Comercial",

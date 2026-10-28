@@ -69,6 +69,7 @@ const configSchema = z.object({
     eyebrow: localized.optional(),
     title: localized,
     subtitle: localized.optional(),
+    ctaText: localized.optional(),
     items: z.array(offeringSchema).min(1, "At least one offering is required"),
   }),
   about: z.object({

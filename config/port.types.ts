@@ -24,6 +24,11 @@ export type Terminal = {
   fuente: string;
 };
 
+export type PortPhoto = {
+  src: string;
+  credito: string;
+};
+
 export type Coordinates = { lat: number; lng: number };
 
 export type Puerto = {
@@ -36,5 +41,6 @@ export type Puerto = {
   descripcion: Localized;
   accesoNautico: Localized;
   coordenadas: Coordinates;
+  foto: PortPhoto;
   terminales: Terminal[];
 };

@@ -1,4 +1,4 @@
-import { MAP_HEIGHT, MAP_WIDTH, landDots, latitudeGuides } from "@/lib/geo";
+import { MAP_HEIGHT, MAP_WIDTH, landDots, latitudeGuides, rivers } from "@/lib/geo";
 
 interface ArgentinaDotsProps {
   showGuides?: boolean;
@@ -30,6 +30,37 @@ export function ArgentinaDots({ showGuides = true }: ArgentinaDotsProps) {
         ))}
       {landDots.map(({ x, y }) => (
         <circle key={`${x}-${y}`} cx={x} cy={y} r={1.05} className="fill-accent/30" />
+      ))}
+      {rivers.map((river) => (
+        <g key={river.name}>
+          <path
+            d={river.path}
+            fill="none"
+            strokeWidth={2.4}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="stroke-secondary/25"
+          />
+          <path
+            d={river.path}
+            fill="none"
+            strokeWidth={0.9}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="stroke-secondary"
+          />
+          {showGuides && (
+            <text
+              x={river.labelPosition.x}
+              y={river.labelPosition.y}
+              transform={`rotate(-52 ${river.labelPosition.x} ${river.labelPosition.y})`}
+              className="fill-secondary font-data italic"
+              fontSize={3.8}
+            >
+              {river.name}
+            </text>
+          )}
+        </g>
       ))}
     </svg>
   );

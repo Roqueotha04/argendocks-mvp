@@ -4,10 +4,7 @@ import { siteConfig } from "@/config/site.config";
 import { ports } from "@/config/ports";
 import { findPortBySlug } from "@/lib/ports";
 import { PageShell } from "@/components/layout/PageShell";
-import { PortHeader } from "@/components/ports/PortHeader";
-import { PortBody } from "@/components/ports/PortBody";
-import { SuggestionForm } from "@/components/ports/SuggestionForm";
-import { RelatedPorts } from "@/components/ports/RelatedPorts";
+import { PortRecord } from "@/components/ports/PortRecord";
 
 export const dynamicParams = false;
 
@@ -26,6 +23,7 @@ export async function generateMetadata({
   return {
     title: `${port.nombre} (${port.unLocode})`,
     description: port.descripcion[siteConfig.site.defaultLocale],
+    openGraph: { images: [{ url: port.foto.src }] },
   };
 }
 
@@ -40,10 +38,7 @@ export default async function PortPage({
 
   return (
     <PageShell>
-      <PortHeader port={port} />
-      <PortBody port={port} />
-      <SuggestionForm port={port} />
-      <RelatedPorts port={port} />
+      <PortRecord port={port} />
     </PageShell>
   );
 }

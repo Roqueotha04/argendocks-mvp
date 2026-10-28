@@ -101,3 +101,18 @@ function normalize(value: string): string {
 function isNumber(value: number | null): value is number {
   return value !== null;
 }
+
+export type ProvinceGroup = { province: string; ports: Puerto[] };
+
+export function groupPortsByProvince(): ProvinceGroup[] {
+  return listProvinces().map((province) => ({
+    province,
+    ports: ports.filter((port) => port.provincia === province),
+  }));
+}
+
+export function hasActiveFilters(filters: PortFilters): boolean {
+  return (
+    filters.query !== "" || filters.province !== null || filters.kind !== null || filters.cargos.length > 0
+  );
+}

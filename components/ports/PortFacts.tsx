@@ -7,7 +7,7 @@ import { useLanguage } from "@/hooks/useLanguage";
 import { formatCoordinates } from "@/lib/format";
 import { PortMap } from "@/components/map/PortMap";
 
-export function PortOverview({ port }: { port: Puerto }) {
+export function PortFacts({ port }: { port: Puerto }) {
   const { t } = useLanguage();
 
   const facts = [
@@ -21,21 +21,23 @@ export function PortOverview({ port }: { port: Puerto }) {
   const otherSlugs = ports.filter((other) => other.slug !== port.slug).map((other) => other.slug);
 
   return (
-    <aside className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
-      <div className="rounded-2xl bg-white p-5 md:p-6">
-        <h2 className="font-heading text-lg font-semibold text-primary">{t(ui.portDetail.overview)}</h2>
-        <dl className="mt-4 divide-y divide-line">
+    <aside className="space-y-4">
+      <section aria-labelledby="overview-title" className="rounded-2xl border border-line bg-white p-5">
+        <h2 id="overview-title" className="font-heading text-base font-semibold text-primary">
+          {t(ui.portDetail.overview)}
+        </h2>
+        <dl className="mt-3 divide-y divide-line text-sm">
           {facts.map(({ label, value }) => (
-            <div key={label.es} className="grid grid-cols-[7.5rem_1fr] gap-3 py-2.5">
-              <dt className="font-data text-[10px] uppercase leading-5 tracking-[0.18em] text-primary/55">{t(label)}</dt>
-              <dd className="text-sm text-primary">{value}</dd>
+            <div key={label.es} className="flex justify-between gap-4 py-2.5">
+              <dt className="shrink-0 text-primary/60">{t(label)}</dt>
+              <dd className="text-right text-primary">{value}</dd>
             </div>
           ))}
         </dl>
-      </div>
+      </section>
 
-      <div className="rounded-2xl bg-deep p-5 print:hidden">
-        <h2 className="font-data text-[10px] uppercase tracking-[0.2em] text-accent/70">
+      <section aria-labelledby="location-title" className="rounded-2xl bg-deep p-5 print:hidden">
+        <h2 id="location-title" className="text-xs font-semibold text-accent/80">
           {t(ui.portDetail.locationTitle)}
         </h2>
         <PortMap
@@ -44,9 +46,9 @@ export function PortOverview({ port }: { port: Puerto }) {
           activeSlug={port.slug}
           mutedSlugs={otherSlugs}
           showGuides={false}
-          className="mx-auto mt-4 w-[150px]"
+          className="mx-auto mt-3 w-[140px]"
         />
-      </div>
+      </section>
     </aside>
   );
 }

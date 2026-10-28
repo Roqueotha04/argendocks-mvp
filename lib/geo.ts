@@ -9,6 +9,7 @@ const SOUTH = -55.5;
 const SCALE = 10;
 const LONGITUDE_FACTOR = Math.cos((38.5 * Math.PI) / 180);
 const DOT_SPACING = 4;
+const RIVER_CLEARANCE = 2.6;
 
 export const MAP_WIDTH = round((EAST - WEST) * LONGITUDE_FACTOR * SCALE);
 export const MAP_HEIGHT = round((NORTH - SOUTH) * SCALE);
@@ -48,6 +49,12 @@ const malvinas: LngLat[] = [
 
 const landmasses = [mainland, tierraDelFuego, malvinas];
 
+const lowerParana: LngLat[] = [
+  [-58.6, -27.3], [-58.83, -27.47], [-59.1, -28.2], [-59.27, -29.14], [-59.6, -30.0],
+  [-59.65, -30.7], [-60.3, -31.4], [-60.6, -31.65], [-60.75, -32.3], [-60.63, -32.95],
+  [-60.22, -33.33], [-59.66, -33.68], [-59.03, -34.1], [-58.55, -34.35],
+];
+
 export type MapPoint = { x: number; y: number };
 
 export function project({ lat, lng }: Coordinates): MapPoint {
@@ -61,6 +68,18 @@ export function toMapPercent(coordinates: Coordinates): MapPoint {
   const { x, y } = project(coordinates);
   return { x: (x / MAP_WIDTH) * 100, y: (y / MAP_HEIGHT) * 100 };
 }
+
+export type River = { name: string; path: string; labelPosition: MapPoint };
+
+export const rivers: River[] = [
+  {
+    name: "Paraná",
+    path: toSvgPath(lowerParana.map(projectLngLat)),
+    labelPosition: projectLngLat([-60.1, -32.0]),
+  },
+];
+
+const riverSegments = [lowerParana.map(projectLngLat)];
 
 export const latitudeGuides = [-25, -30, -35, -40, -45, -50, -55].map((lat) => ({
   lat,
@@ -77,12 +96,41 @@ function buildLandDots(): MapPoint[] {
         WEST + x / (LONGITUDE_FACTOR * SCALE),
         NORTH - y / SCALE,
       ];
-      if (landmasses.some((polygon) => isInsidePolygon(point, polygon))) {
+      const isLand = landmasses.some((polygon) => isInsidePolygon(point, polygon));
+      if (isLand && !isNearRiver({ x, y })) {
         dots.push({ x: round(x), y: round(y) });
       }
     }
   }
   return dots;
+}
+
+function isNearRiver(point: MapPoint): boolean {
+  return riverSegments.some((river) =>
+    river.some((start, index) => {
+      const end = river[index + 1];
+      return end !== undefined && distanceToSegment(point, start, end) < RIVER_CLEARANCE;
+    }),
+  );
+}
+
+function distanceToSegment(point: MapPoint, start: MapPoint, end: MapPoint): number {
+  const deltaX = end.x - start.x;
+  const deltaY = end.y - start.y;
+  const lengthSquared = deltaX ** 2 + deltaY ** 2;
+  const progress = Math.max(
+    0,
+    Math.min(1, ((point.x - start.x) * deltaX + (point.y - start.y) * deltaY) / lengthSquared),
+  );
+  return Math.hypot(point.x - (start.x + progress * deltaX), point.y - (start.y + progress * deltaY));
+}
+
+function projectLngLat([lng, lat]: LngLat): MapPoint {
+  return project({ lat, lng });
+}
+
+function toSvgPath(points: MapPoint[]): string {
+  return points.map(({ x, y }, index) => `${index === 0 ? "M" : "L"}${x} ${y}`).join(" ");
 }
 
 function isInsidePolygon([lng, lat]: LngLat, polygon: LngLat[]): boolean {

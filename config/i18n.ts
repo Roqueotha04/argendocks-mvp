@@ -3,7 +3,6 @@ import type { Administration, Cargo, PortKind } from "./port.types";
 
 interface UiStrings {
   nav: Record<SectionId, Localized>;
-  portsPage: Localized;
   languageToggle: {
     label: Localized;
   };
@@ -27,6 +26,11 @@ interface UiStrings {
     messagePlaceholder: Localized;
     submit: Localized;
     or: Localized;
+    formTitle: Localized;
+  };
+  carousel: {
+    previous: Localized;
+    next: Localized;
   };
   founder: {
     previous: Localized;
@@ -58,6 +62,9 @@ interface UiStrings {
   };
   portDetail: {
     back: Localized;
+    breadcrumb: Localized;
+    keyFigures: Localized;
+    photo: Localized;
     overview: Localized;
     province: Localized;
     locality: Localized;
@@ -81,7 +88,6 @@ interface UiStrings {
     totalBerth: Localized;
     lastUpdate: Localized;
     relatedTitle: Localized;
-    relatedSubtitle: Localized;
     locationTitle: Localized;
   };
   exportActions: {
@@ -92,7 +98,8 @@ interface UiStrings {
     copied: Localized;
   };
   suggestion: {
-    eyebrow: Localized;
+    open: Localized;
+    close: Localized;
     title: Localized;
     subtitle: Localized;
     terminalLabel: Localized;
@@ -125,14 +132,13 @@ export const ui: UiStrings = {
     hero: { es: "Inicio", en: "Home" },
     platform: { es: "Plataforma", en: "Platform" },
     ports: { es: "Puertos", en: "Ports" },
-    offerings: { es: "Consultoría", en: "Consulting" },
+    offerings: { es: "La red", en: "Network" },
     about: { es: "Quiénes somos", en: "About" },
     contact: { es: "Contacto", en: "Contact" },
     testimonials: { es: "Testimonios", en: "Testimonials" },
     gallery: { es: "Galería", en: "Gallery" },
     faq: { es: "Preguntas frecuentes", en: "FAQ" },
   },
-  portsPage: { es: "Puertos argentinos", en: "Argentine ports" },
   languageToggle: {
     label: { es: "Cambiar idioma", en: "Switch language" },
   },
@@ -159,6 +165,11 @@ export const ui: UiStrings = {
     },
     submit: { es: "Enviar por WhatsApp", en: "Send via WhatsApp" },
     or: { es: "o escribinos directo", en: "or message us directly" },
+    formTitle: { es: "Dejanos tu consulta", en: "Send us a message" },
+  },
+  carousel: {
+    previous: { es: "Anterior", en: "Previous" },
+    next: { es: "Siguiente", en: "Next" },
   },
   founder: {
     previous: { es: "Capítulo anterior", en: "Previous chapter" },
@@ -219,6 +230,9 @@ export const ui: UiStrings = {
   },
   portDetail: {
     back: { es: "Todos los puertos", en: "All ports" },
+    breadcrumb: { es: "Puertos", en: "Ports" },
+    keyFigures: { es: "Datos clave", en: "Key figures" },
+    photo: { es: "Foto", en: "Photo" },
     overview: { es: "Información general", en: "Overview" },
     province: { es: "Provincia", en: "Province" },
     locality: { es: "Localidad", en: "Town" },
@@ -245,10 +259,6 @@ export const ui: UiStrings = {
     totalBerth: { es: "Frente de atraque", en: "Total berth" },
     lastUpdate: { es: "Última actualización", en: "Last update" },
     relatedTitle: { es: "Puertos relacionados", en: "Related ports" },
-    relatedSubtitle: {
-      es: "Cercanos o con cargas en común.",
-      en: "Nearby or handling similar cargo.",
-    },
     locationTitle: { es: "Ubicación", en: "Location" },
   },
   exportActions: {
@@ -259,11 +269,12 @@ export const ui: UiStrings = {
     copied: { es: "Enlace copiado", en: "Link copied" },
   },
   suggestion: {
-    eyebrow: { es: "¿Ves algo desactualizado?", en: "Spotted something outdated?" },
+    open: { es: "Sugerir actualización", en: "Suggest an update" },
+    close: { es: "Cerrar", en: "Close" },
     title: { es: "Sugerí una actualización", en: "Suggest an update" },
     subtitle: {
-      es: "Si trabajás en este puerto, tu dato vale. Lo revisamos y, si se confirma, lo publicamos con tu fuente.",
-      en: "If you work at this port, your data matters. We review it and, once confirmed, publish it with your source.",
+      es: "Si trabajás en este puerto, tu dato vale. Lo revisamos y, si se confirma, lo publicamos con la fuente.",
+      en: "If you work at this port, your data matters. We review it and, once confirmed, publish it with its source.",
     },
     terminalLabel: { es: "Terminal", en: "Terminal" },
     wholePort: { es: "Puerto en general", en: "Whole port" },
