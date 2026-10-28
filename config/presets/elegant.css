@@ -1,0 +1,19 @@
+/*
+ * Preset: Elegant
+ * Font: Playfair Display (heading) + DM Sans (body)
+ *
+ * Copiar estas variables en :root de app/globals.css.
+ * Cambiar los imports de fuente en app/layout.tsx a:
+ *   import { Playfair_Display, DM_Sans } from "next/font/google";
+ * Asignar Playfair a --font-heading-face y DM Sans a --font-body-face.
+ */
+
+:root {
+  --background: #0a0a0a;
+  --foreground: #f5f5f5;
+
+  --primary: #d4af37;
+  --primary-foreground: #0a0a0a;
+  --secondary: #8b7355;
+  --accent: #161616;
+}

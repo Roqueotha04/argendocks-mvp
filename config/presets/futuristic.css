@@ -1,0 +1,18 @@
+/*
+ * Preset: Futuristic
+ * Font: Space Grotesk (heading + body)
+ *
+ * Copiar estas variables en :root de app/globals.css.
+ * Cambiar el import de fuente en app/layout.tsx a:
+ *   import { Space_Grotesk } from "next/font/google";
+ */
+
+:root {
+  --background: #0a0a12;
+  --foreground: #e4e4e7;
+
+  --primary: #00e5ff;
+  --primary-foreground: #0a0a12;
+  --secondary: #1e1e2e;
+  --accent: #13131d;
+}

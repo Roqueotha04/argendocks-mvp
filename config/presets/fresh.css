@@ -1,0 +1,18 @@
+/*
+ * Preset: Fresh
+ * Font: Nunito (heading + body)
+ *
+ * Copiar estas variables en :root de app/globals.css.
+ * Cambiar el import de fuente en app/layout.tsx a:
+ *   import { Nunito } from "next/font/google";
+ */
+
+:root {
+  --background: #ffffff;
+  --foreground: #1f2937;
+
+  --primary: #22c55e;
+  --primary-foreground: #ffffff;
+  --secondary: #16a34a;
+  --accent: #f0fdf4;
+}
