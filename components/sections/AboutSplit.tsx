@@ -6,7 +6,8 @@ import { useLanguage } from "@/hooks/useLanguage";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
-import { HeartIcon } from "@/components/ui/icons";
+import { WaveDivider } from "@/components/ui/WaveDivider";
+import { FounderChapters } from "@/components/sections/FounderChapters";
 
 const { about } = siteConfig;
 
@@ -14,69 +15,44 @@ export function AboutSplit() {
   const { t } = useLanguage();
 
   return (
-    <Section id="about" stacked className="overflow-hidden bg-accent">
-      <span
-        aria-hidden
-        className="pointer-events-none absolute -right-20 top-10 h-64 w-64 rounded-full bg-primary/10 blur-2xl"
-      />
-
-      <div className="relative grid items-center gap-10 md:grid-cols-2">
-        <Reveal delay={0.05} className="order-last md:order-first">
-          <div className="relative mx-auto w-full max-w-md">
-            <span
-              aria-hidden
-              className="absolute inset-0 -rotate-3 rounded-[2.5rem] bg-primary/15"
-            />
-            <div className="img-shimmer relative aspect-[4/5] w-full rotate-2 overflow-hidden rounded-[2.5rem] border-[6px] border-white shadow-2xl">
-              {about.image && (
-                <Image
-                  src={about.image}
-                  alt={t(about.title)}
-                  fill
-                  sizes="(max-width: 768px) 90vw, 45vw"
-                  className="object-cover"
-                />
-              )}
-            </div>
-            <span
-              aria-hidden
-              className="absolute -bottom-4 -right-4 flex h-16 w-16 rotate-12 items-center justify-center rounded-full bg-primary shadow-lg"
-            >
-              <HeartIcon className="h-8 w-8 text-white" />
-            </span>
+    <Section
+      id="about"
+      className="bg-primary text-white"
+      topDivider={<WaveDivider className="fill-primary" />}
+    >
+      <div className="grid items-center gap-12 md:grid-cols-[0.8fr_1.2fr] md:gap-14">
+        <Reveal className="relative mx-auto w-full max-w-[300px] md:max-w-sm">
+          <span
+            aria-hidden
+            className="absolute -inset-3 rounded-t-full rounded-b-3xl border border-white/20"
+          />
+          <div className="img-shimmer relative aspect-[4/5] w-full overflow-hidden rounded-t-full rounded-b-3xl">
+            {about.image && (
+              <Image
+                src={about.image}
+                alt={about.imageAlt ? t(about.imageAlt) : t(about.title)}
+                fill
+                sizes="(max-width: 768px) 80vw, 380px"
+                className="object-cover object-top"
+              />
+            )}
           </div>
+          <span
+            aria-hidden
+            className="absolute -bottom-3 -right-3 h-16 w-16 rounded-full border-[6px] border-primary bg-secondary"
+          />
         </Reveal>
 
-        <Reveal>
-          <SectionHeading eyebrow={about.eyebrow} title={about.title} />
-          <div className="mt-5 space-y-4">
-            {t(about.body).map((paragraph, index) => (
-              <p
-                key={index}
-                className="text-base leading-relaxed text-foreground/80 md:text-lg"
-              >
+        <Reveal delay={0.05}>
+          <SectionHeading eyebrow={about.eyebrow} title={about.title} subtitle={about.subtitle} tone="onColor" />
+          <div className="mt-5 space-y-3">
+            {t(about.body).map((paragraph) => (
+              <p key={paragraph} className="max-w-xl text-base leading-relaxed text-accent/90">
                 {paragraph}
               </p>
             ))}
           </div>
-
-          {about.highlights && about.highlights.length > 0 && (
-            <dl className="mt-8 grid grid-cols-3 gap-3">
-              {about.highlights.map((highlight) => (
-                <div
-                  key={highlight.value}
-                  className="rounded-2xl bg-white p-3 text-center shadow-sm"
-                >
-                  <dt className="font-heading text-xl font-bold text-primary">
-                    {highlight.value}
-                  </dt>
-                  <dd className="mt-0.5 text-xs text-foreground/70">
-                    {t(highlight.label)}
-                  </dd>
-                </div>
-              ))}
-            </dl>
-          )}
+          {about.chapters && <FounderChapters chapters={about.chapters} />}
         </Reveal>
       </div>
     </Section>

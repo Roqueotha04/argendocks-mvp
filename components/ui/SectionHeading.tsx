@@ -11,18 +11,19 @@ interface SectionHeadingProps {
   eyebrow?: Localized;
   tone?: HeadingTone;
   align?: "left" | "center";
+  as?: "h1" | "h2";
 }
 
 const toneClasses: Record<HeadingTone, { title: string; subtitle: string; eyebrow: string }> = {
   default: {
     title: "text-primary",
-    subtitle: "text-foreground/75",
-    eyebrow: "bg-primary/10 text-primary",
+    subtitle: "text-secondary",
+    eyebrow: "text-primary/70",
   },
   onColor: {
     title: "text-white",
-    subtitle: "text-white/80",
-    eyebrow: "bg-white/20 text-white",
+    subtitle: "text-accent",
+    eyebrow: "text-accent/80",
   },
 };
 
@@ -32,6 +33,7 @@ export function SectionHeading({
   eyebrow,
   tone = "default",
   align = "left",
+  as: HeadingTag = "h2",
 }: SectionHeadingProps) {
   const { t } = useLanguage();
   const styles = toneClasses[tone];
@@ -40,18 +42,21 @@ export function SectionHeading({
     <div className={align === "center" ? "flex flex-col items-center text-center" : ""}>
       {eyebrow && (
         <span
-          className={`mb-3 inline-flex rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wide ${styles.eyebrow}`}
+          className={`mb-4 inline-flex items-center gap-2 font-data text-[11px] font-medium uppercase tracking-[0.22em] ${styles.eyebrow}`}
         >
+          <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-secondary" />
           {t(eyebrow)}
         </span>
       )}
-      <h2
-        className={`font-heading text-2xl font-bold tracking-tight md:text-3xl ${styles.title}`}
+      <HeadingTag
+        className={`max-w-2xl font-heading text-3xl font-semibold leading-[1.05] tracking-tight text-balance md:text-[2.6rem] ${styles.title}`}
       >
         {t(title)}
-      </h2>
+      </HeadingTag>
       {subtitle && (
-        <p className={`mt-3 max-w-xl text-base ${styles.subtitle}`}>{t(subtitle)}</p>
+        <p className={`mt-3 max-w-xl font-accent text-xl italic leading-snug md:text-2xl ${styles.subtitle}`}>
+          {t(subtitle)}
+        </p>
       )}
     </div>
   );

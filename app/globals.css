@@ -1,13 +1,15 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #1a1a1a;
+  --background: #f5f8fc;
+  --foreground: #0c1d38;
 
-  --primary: #1a1a1a;
+  --primary: #13305a;
   --primary-foreground: #ffffff;
-  --secondary: #4a4a4a;
-  --accent: #f4f4f5;
+  --secondary: #2a8bd0;
+  --accent: #dfe8f3;
+  --deep: #0a1830;
+  --line: color-mix(in srgb, var(--primary) 14%, transparent);
 }
 
 @theme inline {
@@ -17,9 +19,13 @@
   --color-primary-foreground: var(--primary-foreground);
   --color-secondary: var(--secondary);
   --color-accent: var(--accent);
+  --color-deep: var(--deep);
+  --color-line: var(--line);
 
   --font-heading: var(--font-heading-face);
-  --font-body: var(--font-body-face);
+  --font-body: var(--font-heading-face);
+  --font-accent: var(--font-accent-face);
+  --font-data: var(--font-data-face);
 }
 
 html {
@@ -29,6 +35,11 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
+}
+
+::selection {
+  background: var(--secondary);
+  color: #ffffff;
 }
 
 @keyframes shimmer {
@@ -45,4 +56,31 @@ body {
   );
   background-size: 200% 100%;
   animation: shimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes beacon {
+  0% { transform: scale(1); opacity: 0.7; }
+  100% { transform: scale(3.2); opacity: 0; }
+}
+
+.beacon-pulse {
+  animation: beacon 2.4s ease-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .beacon-pulse,
+  .img-shimmer {
+    animation: none;
+  }
+}
+
+@media print {
+  * {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  body {
+    background: #ffffff;
+  }
 }

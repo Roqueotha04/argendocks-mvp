@@ -12,7 +12,7 @@ const offeringSchema = z.object({
   slug: z.string().optional(),
 });
 
-const sectionId = z.enum(["hero", "offerings", "about", "contact", "testimonials", "gallery", "faq"]);
+const sectionId = z.enum(["hero", "platform", "ports", "offerings", "about", "contact", "testimonials", "gallery", "faq"]);
 
 const configSchema = z.object({
   site: z.object({
@@ -48,10 +48,25 @@ const configSchema = z.object({
     title: localized,
     subtitle: localized,
     ctaText: localized,
+    secondaryCtaText: localized.optional(),
+    highlights: z.array(localized).optional(),
     backgroundImage: z.string().optional(),
   }),
+  platform: z.object({
+    eyebrow: localized.optional(),
+    title: localized,
+    subtitle: localized.optional(),
+    features: z.array(z.object({ label: localized, title: localized, description: localized })).min(1),
+  }).optional(),
+  portsPreview: z.object({
+    eyebrow: localized.optional(),
+    title: localized,
+    subtitle: localized.optional(),
+    ctaText: localized,
+  }).optional(),
   offerings: z.object({
     kind: z.enum(["services", "products"]),
+    eyebrow: localized.optional(),
     title: localized,
     subtitle: localized.optional(),
     items: z.array(offeringSchema).min(1, "At least one offering is required"),
@@ -59,11 +74,15 @@ const configSchema = z.object({
   about: z.object({
     title: localized,
     eyebrow: localized.optional(),
+    subtitle: localized.optional(),
     body: localizedArray,
+    chapters: z.array(z.object({ title: localized, body: localizedArray })).optional(),
     highlights: z.array(z.object({ value: z.string(), label: localized })).optional(),
     image: z.string().optional(),
+    imageAlt: localized.optional(),
   }),
   contact: z.object({
+    eyebrow: localized.optional(),
     title: localized,
     subtitle: localized,
     whatsappMessage: localized,

@@ -5,11 +5,9 @@ import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { ServiceCard } from "@/components/ui/ServiceCard";
-import { ProductCard } from "@/components/ui/ProductCard";
 import { useDragScroll } from "@/hooks/useDragScroll";
 
 const { offerings } = siteConfig;
-const Card = offerings.kind === "products" ? ProductCard : ServiceCard;
 
 export function OfferingsCarousel() {
   const scrollRef = useDragScroll<HTMLDivElement>();
@@ -26,7 +24,7 @@ export function OfferingsCarousel() {
       >
         {offerings.items.map((item, index) => (
           <Reveal key={item.name.es} delay={index * 0.04} className="w-72 shrink-0 snap-start">
-            <Card item={item} />
+            <ServiceCard item={item} />
           </Reveal>
         ))}
       </div>

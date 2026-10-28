@@ -1,6 +1,7 @@
+import Link from "next/link";
 import type { ReactNode } from "react";
 
-type ButtonVariant = "primary" | "outline";
+type ButtonVariant = "primary" | "signal" | "outline" | "outlineOnColor";
 
 interface ButtonProps {
   href: string;
@@ -12,9 +13,14 @@ interface ButtonProps {
 }
 
 const variantClasses: Record<ButtonVariant, string> = {
-  primary: "bg-primary text-primary-foreground hover:opacity-90",
-  outline: "border border-foreground/20 text-foreground hover:bg-foreground/5",
+  primary: "bg-primary text-primary-foreground hover:bg-deep",
+  signal: "bg-secondary text-white hover:bg-[color-mix(in_srgb,var(--secondary),black_15%)]",
+  outline: "border border-primary/25 text-primary hover:border-primary hover:bg-primary/5",
+  outlineOnColor: "border border-white/30 text-white hover:border-white hover:bg-white/10",
 };
+
+const baseClasses =
+  "inline-flex h-12 items-center justify-center gap-2 rounded-full px-6 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary";
 
 export function Button({
   href,
@@ -24,18 +30,19 @@ export function Button({
   ariaLabel,
   children,
 }: ButtonProps) {
-  const externalProps = external
-    ? { target: "_blank", rel: "noopener noreferrer" }
-    : {};
+  const classes = `${baseClasses} ${variantClasses[variant]} ${className}`;
+
+  if (external) {
+    return (
+      <a href={href} aria-label={ariaLabel} target="_blank" rel="noopener noreferrer" className={classes}>
+        {children}
+      </a>
+    );
+  }
 
   return (
-    <a
-      href={href}
-      aria-label={ariaLabel}
-      {...externalProps}
-      className={`inline-flex h-12 items-center justify-center rounded-full px-7 text-sm font-medium transition-colors ${variantClasses[variant]} ${className}`}
-    >
+    <Link href={href} aria-label={ariaLabel} className={classes}>
       {children}
-    </a>
+    </Link>
   );
 }

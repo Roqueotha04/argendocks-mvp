@@ -1,21 +1,29 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
+import { IBM_Plex_Mono, Instrument_Sans, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/config/site.config";
 import { LanguageProvider } from "@/components/providers/LanguageProvider";
 import { MotionProvider } from "@/components/providers/MotionProvider";
 import { JsonLd } from "@/components/seo/JsonLd";
 
-// Keep these imports in sync with brand.headingFont / brand.bodyFont in site.config.ts
-const headingFont = Geist({
+const sansFont = Instrument_Sans({
   subsets: ["latin"],
   variable: "--font-heading-face",
   display: "swap",
 });
 
-const bodyFont = Geist({
+const accentFont = Instrument_Serif({
   subsets: ["latin"],
-  variable: "--font-body-face",
+  weight: "400",
+  style: "italic",
+  variable: "--font-accent-face",
+  display: "swap",
+});
+
+const dataFont = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-data-face",
   display: "swap",
 });
 
@@ -24,7 +32,10 @@ const locale = site.defaultLocale;
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  title: seo.title[locale],
+  title: {
+    default: seo.title[locale],
+    template: `%s — ${business.name}`,
+  },
   description: seo.description[locale],
   keywords: seo.keywords,
   openGraph: {
@@ -45,7 +56,11 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang={locale} suppressHydrationWarning className={`${headingFont.variable} ${bodyFont.variable} h-full antialiased`}>
+    <html
+      lang={locale}
+      suppressHydrationWarning
+      className={`${sansFont.variable} ${accentFont.variable} ${dataFont.variable} h-full antialiased`}
+    >
       <body className="min-h-full font-body">
         <JsonLd />
         <MotionProvider>

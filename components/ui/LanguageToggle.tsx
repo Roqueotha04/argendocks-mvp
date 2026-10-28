@@ -11,9 +11,11 @@ export function LanguageToggle() {
       type="button"
       onClick={toggleLocale}
       aria-label={t(ui.languageToggle.label)}
-      className="rounded-full border border-foreground/20 px-3 py-1.5 text-xs font-semibold tracking-wide text-foreground transition-colors hover:bg-foreground/5"
+      className="flex h-9 items-center gap-1 rounded-full border border-white/20 px-3 font-data text-[11px] tracking-widest text-white/60 transition-colors hover:border-white/50"
     >
-      {locale === "es" ? "EN" : "ES"}
+      <span className={locale === "es" ? "text-white" : ""}>ES</span>
+      <span aria-hidden className="text-white/30">/</span>
+      <span className={locale === "en" ? "text-white" : ""}>EN</span>
     </button>
   );
 }

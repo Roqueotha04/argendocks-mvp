@@ -8,6 +8,8 @@ export type OfferingKind = "services" | "products";
 
 export type SectionId =
   | "hero"
+  | "platform"
+  | "ports"
   | "offerings"
   | "about"
   | "contact"
@@ -94,25 +96,57 @@ export interface HeroContent {
   title: Localized;
   subtitle: Localized;
   ctaText: Localized;
+  secondaryCtaText?: Localized;
+  highlights?: Localized[];
   backgroundImage?: string;
+}
+
+export interface PlatformFeature {
+  label: Localized;
+  title: Localized;
+  description: Localized;
+}
+
+export interface PlatformContent {
+  eyebrow?: Localized;
+  title: Localized;
+  subtitle?: Localized;
+  features: PlatformFeature[];
+}
+
+export interface PortsPreviewContent {
+  eyebrow?: Localized;
+  title: Localized;
+  subtitle?: Localized;
+  ctaText: Localized;
 }
 
 export interface OfferingsContent {
   kind: OfferingKind;
+  eyebrow?: Localized;
   title: Localized;
   subtitle?: Localized;
   items: Offering[];
 }
 
+export interface AboutChapter {
+  title: Localized;
+  body: Localized<string[]>;
+}
+
 export interface AboutContent {
   title: Localized;
   eyebrow?: Localized;
+  subtitle?: Localized;
   body: Localized<string[]>;
+  chapters?: AboutChapter[];
   highlights?: { value: string; label: Localized }[];
   image?: string;
+  imageAlt?: Localized;
 }
 
 export interface ContactContent {
+  eyebrow?: Localized;
   title: Localized;
   subtitle: Localized;
   whatsappMessage: Localized;
@@ -137,6 +171,8 @@ export interface SiteConfig {
   sections: SectionId[];
   variants?: SectionVariants;
   hero: HeroContent;
+  platform?: PlatformContent;
+  portsPreview?: PortsPreviewContent;
   offerings: OfferingsContent;
   about: AboutContent;
   contact: ContactContent;

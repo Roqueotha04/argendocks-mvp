@@ -1,10 +1,10 @@
 import type { ComponentType } from "react";
 import { siteConfig } from "@/config/site.config";
 import type { SectionId } from "@/config/site.types";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
-import { FloatingWhatsApp } from "@/components/ui/FloatingWhatsApp";
+import { PageShell } from "@/components/layout/PageShell";
 import { Hero } from "@/components/sections/Hero";
+import { Platform } from "@/components/sections/Platform";
+import { PortsPreview } from "@/components/sections/PortsPreview";
 import { Offerings } from "@/components/sections/Offerings";
 import { OfferingsCarousel } from "@/components/sections/OfferingsCarousel";
 import { AboutSplit } from "@/components/sections/AboutSplit";
@@ -19,6 +19,8 @@ const variants = siteConfig.variants;
 
 const sectionComponents: Record<SectionId, ComponentType> = {
   hero: Hero,
+  platform: Platform,
+  ports: PortsPreview,
   offerings: (variants?.offerings ?? "grid") === "carousel" ? OfferingsCarousel : Offerings,
   about: (variants?.about ?? "split") === "simple" ? About : AboutSplit,
   contact: (variants?.contact ?? "full") === "centered" ? ContactCentered : Contact,
@@ -29,16 +31,11 @@ const sectionComponents: Record<SectionId, ComponentType> = {
 
 export default function Home() {
   return (
-    <>
-      <Navbar />
-      <main>
-        {siteConfig.sections.map((id) => {
-          const SectionComponent = sectionComponents[id];
-          return <SectionComponent key={id} />;
-        })}
-      </main>
-      <Footer />
-      <FloatingWhatsApp />
-    </>
+    <PageShell>
+      {siteConfig.sections.map((id) => {
+        const SectionComponent = sectionComponents[id];
+        return <SectionComponent key={id} />;
+      })}
+    </PageShell>
   );
 }

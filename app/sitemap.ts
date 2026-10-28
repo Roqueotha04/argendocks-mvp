@@ -1,28 +1,24 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/config/site.config";
-import { offeringSlug } from "@/lib/slug";
+import { ports } from "@/config/ports";
+import { PORTS_PATH, portPath } from "@/lib/navigation";
 
 export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = siteConfig.site.url;
+  const lastModified = new Date();
 
-  const offeringPages: MetadataRoute.Sitemap = siteConfig.offerings.items.map(
-    (item) => ({
-      url: `${baseUrl}/oferta/${offeringSlug(item)}`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.7,
-    }),
-  );
+  const portPages: MetadataRoute.Sitemap = ports.map((port) => ({
+    url: `${baseUrl}${portPath(port.slug)}`,
+    lastModified,
+    changeFrequency: "weekly",
+    priority: 0.7,
+  }));
 
   return [
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 1,
-    },
-    ...offeringPages,
+    { url: baseUrl, lastModified, changeFrequency: "monthly", priority: 1 },
+    { url: `${baseUrl}${PORTS_PATH}`, lastModified, changeFrequency: "weekly", priority: 0.9 },
+    ...portPages,
   ];
 }
