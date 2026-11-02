@@ -24,7 +24,9 @@ export function PortCard({ port, isActive = false, onHighlight }: PortCardProps)
     <Link
       href={portPath(port.slug)}
       onMouseEnter={() => onHighlight?.(port.slug)}
+      onMouseLeave={() => onHighlight?.(null)}
       onFocus={() => onHighlight?.(port.slug)}
+      onBlur={() => onHighlight?.(null)}
       className={`group flex h-full flex-col rounded-2xl border bg-white p-5 transition-all hover:-translate-y-0.5 hover:border-secondary hover:shadow-[0_18px_40px_-24px_rgba(19,48,90,0.45)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary ${
         isActive ? "border-secondary shadow-[0_18px_40px_-24px_rgba(19,48,90,0.45)]" : "border-line"
       }`}

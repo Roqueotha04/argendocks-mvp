@@ -21,7 +21,9 @@ import { Section } from "@/components/ui/Section";
 export function PortExplorer() {
   const { t } = useLanguage();
   const [filters, setFilters] = useState<Filters>(emptyPortFilters);
-  const [activeSlug, setActiveSlug] = useState<string | null>(null);
+  const [selectedSlug, setSelectedSlug] = useState<string | null>(null);
+  const [hoveredSlug, setHoveredSlug] = useState<string | null>(null);
+  const activeSlug = hoveredSlug ?? selectedSlug;
 
   const visiblePorts = useMemo(() => filterPorts(filters), [filters]);
   const mutedSlugs = ports.filter((port) => !visiblePorts.includes(port)).map((port) => port.slug);
@@ -39,7 +41,7 @@ export function PortExplorer() {
             label={t(ui.explorer.mapLabel)}
             activeSlug={activeSlug}
             mutedSlugs={mutedSlugs}
-            onSelect={setActiveSlug}
+            onSelect={setSelectedSlug}
             className="mx-auto w-[min(100%,220px)] lg:w-[250px]"
           />
           <div className="mt-6">
@@ -63,10 +65,10 @@ export function PortExplorer() {
                   {t(ui.explorer.clearFilters)}
                 </button>
               </div>
-              <FilteredPortGrid ports={visiblePorts} activeSlug={activeSlug} onHighlight={setActiveSlug} />
+              <FilteredPortGrid ports={visiblePorts} activeSlug={activeSlug} onHighlight={setHoveredSlug} />
             </>
           ) : (
-            <ProvinceCarousels activeSlug={activeSlug} onHighlight={setActiveSlug} />
+            <ProvinceCarousels activeSlug={activeSlug} onHighlight={setHoveredSlug} />
           )}
         </div>
       </div>

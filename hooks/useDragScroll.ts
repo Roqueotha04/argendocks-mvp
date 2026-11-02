@@ -2,6 +2,8 @@
 
 import { useEffect, useRef } from "react";
 
+const DRAG_THRESHOLD_PX = 6;
+
 export function useDragScroll<T extends HTMLElement>() {
   const ref = useRef<T>(null);
 
@@ -9,6 +11,7 @@ export function useDragScroll<T extends HTMLElement>() {
     const element = ref.current;
     if (!element) return;
 
+    let isPointerDown = false;
     let isDragging = false;
     let startX = 0;
     let startScrollLeft = 0;
@@ -29,18 +32,23 @@ export function useDragScroll<T extends HTMLElement>() {
 
     const onPointerDown = (event: PointerEvent) => {
       if (event.pointerType !== "mouse") return;
-      isDragging = true;
+      isPointerDown = true;
+      isDragging = false;
       cancelMomentum();
       startX = event.clientX;
       startScrollLeft = element.scrollLeft;
       lastX = event.clientX;
       lastTimestamp = event.timeStamp;
       velocity = 0;
-      element.setPointerCapture(event.pointerId);
     };
 
     const onPointerMove = (event: PointerEvent) => {
-      if (!isDragging) return;
+      if (!isPointerDown) return;
+      if (!isDragging) {
+        if (Math.abs(event.clientX - startX) < DRAG_THRESHOLD_PX) return;
+        isDragging = true;
+        element.setPointerCapture(event.pointerId);
+      }
       event.preventDefault();
       element.scrollLeft = startScrollLeft - (event.clientX - startX);
       const elapsed = event.timeStamp - lastTimestamp;
@@ -50,16 +58,28 @@ export function useDragScroll<T extends HTMLElement>() {
     };
 
     const onPointerUp = (event: PointerEvent) => {
+      if (!isPointerDown) return;
+      isPointerDown = false;
       if (!isDragging) return;
-      isDragging = false;
       element.releasePointerCapture(event.pointerId);
       frame = requestAnimationFrame(runMomentum);
     };
+
+    const onClickCapture = (event: MouseEvent) => {
+      if (!isDragging) return;
+      event.preventDefault();
+      event.stopPropagation();
+      isDragging = false;
+    };
+
+    const onDragStart = (event: DragEvent) => event.preventDefault();
 
     element.addEventListener("pointerdown", onPointerDown);
     element.addEventListener("pointermove", onPointerMove);
     element.addEventListener("pointerup", onPointerUp);
     element.addEventListener("pointercancel", onPointerUp);
+    element.addEventListener("click", onClickCapture, true);
+    element.addEventListener("dragstart", onDragStart);
 
     return () => {
       cancelMomentum();
@@ -67,6 +87,8 @@ export function useDragScroll<T extends HTMLElement>() {
       element.removeEventListener("pointermove", onPointerMove);
       element.removeEventListener("pointerup", onPointerUp);
       element.removeEventListener("pointercancel", onPointerUp);
+      element.removeEventListener("click", onClickCapture, true);
+      element.removeEventListener("dragstart", onDragStart);
     };
   }, []);
 
