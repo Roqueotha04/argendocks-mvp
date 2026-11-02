@@ -10,6 +10,9 @@
   --accent: #dfe8f3;
   --deep: #0a1830;
   --line: color-mix(in srgb, var(--primary) 14%, transparent);
+  --success: #1f8f63;
+  --warning: #c27612;
+  --danger: #c2413a;
 }
 
 @theme inline {
@@ -21,6 +24,9 @@
   --color-accent: var(--accent);
   --color-deep: var(--deep);
   --color-line: var(--line);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
 
   --font-heading: var(--font-heading-face);
   --font-body: var(--font-heading-face);

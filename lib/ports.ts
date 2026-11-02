@@ -29,9 +29,7 @@ export function findPortBySlug(slug: string): Puerto | undefined {
 }
 
 export function listProvinces(): string[] {
-  return [...new Set(ports.map((port) => port.provincia))].sort((a, b) =>
-    a.localeCompare(b, "es"),
-  );
+  return [...new Set(ports.map((port) => port.provincia))].sort((a, b) => a.localeCompare(b, "es"));
 }
 
 export function listCargos(): Cargo[] {
@@ -56,10 +54,10 @@ export function summarizePort(port: Puerto): PortSummary {
   };
 }
 
-export function filterPorts(filters: PortFilters): Puerto[] {
+export function filterPorts(filters: PortFilters, source: Puerto[] = ports): Puerto[] {
   const query = normalize(filters.query);
 
-  return ports.filter((port) => {
+  return source.filter((port) => {
     const matchesQuery =
       query === "" ||
       [port.nombre, port.localidad, port.provincia, port.unLocode].some((field) =>
@@ -113,6 +111,9 @@ export function groupPortsByProvince(): ProvinceGroup[] {
 
 export function hasActiveFilters(filters: PortFilters): boolean {
   return (
-    filters.query !== "" || filters.province !== null || filters.kind !== null || filters.cargos.length > 0
+    filters.query !== "" ||
+    filters.province !== null ||
+    filters.kind !== null ||
+    filters.cargos.length > 0
   );
 }
